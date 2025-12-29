@@ -1,0 +1,54 @@
+<?php
+namespace App\Models;
+use Exception;
+use App\Models\Interfaces\crudInterface;
+use PDO;
+
+class Tarea implements crudInterface
+{
+    public int $id{
+        set { 
+            if ($value < 0) {
+                throw new Exception("el id no puede ser menor a cero", 1);   
+            }
+            $this->id = $value;
+         }
+    }
+    public $titulo ;
+    public $fecha;
+    public $importante;
+    public $estado;
+
+    public function __construct()
+    {
+        $this->titulo = "";
+        $this->fecha = 0;
+        $this->importante = false;
+        $this->estado = 0;
+    }
+    
+    public function leer(): array
+    {
+        $sql = "SELECT * FROM tareas";
+        return seleccionar($sql);
+    }
+    public function leer1(): array
+    {
+        $sql = "SELECT * FROM tareas WHERE ID = :ID";
+
+        return seleccionar($sql,[":ID" => $this->id]);
+    }
+    public function crear(): bool
+    {
+        throw new \Exception('Not implemented');
+    }
+    public function actualizar(): bool
+    {
+        throw new \Exception('Not implemented');
+    }
+    public function eliminar(): bool
+    {
+        throw new \Exception('Not implemented');
+    }
+
+}
