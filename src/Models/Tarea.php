@@ -34,21 +34,42 @@ class Tarea implements crudInterface
     }
     public function leer1(): array
     {
-        $sql = "SELECT * FROM tareas WHERE ID = :ID";
+        $sql = "SELECT * FROM tareas WHERE id = :ID";
 
         return seleccionar($sql,[":ID" => $this->id]);
     }
     public function crear(): bool
     {
-        throw new \Exception('Not implemented');
+        $sql = "INSERT INTO tareas(titulo, fecha, importante, completado) VALUES (:titulo,:fecha,:importante,:completado) WHERE id = :ID";
+        $parametros = [
+            ":ID" => $this->id,
+            ":titulo" => $this->titulo,
+            ":fecha" => $this->fecha,
+            ":importante" => $this->importante,
+            ":completado" => $this->estado];
+        return ejecutarSQL($sql, $parametros);
     }
     public function actualizar(): bool
     {
-        throw new \Exception('Not implemented');
+        $sql = "UPDATE tareas
+                SET titulo = :titulo, fecha = :fecha, importante = :importante, completado = :completado
+                WHERE id = :ID";
+        
+        $parametros = [
+            ":ID" => $this->id,
+            ":titulo" => $this->titulo,
+            ":fecha" => $this->fecha,
+            ":importante" => $this->importante,
+            ":completado" => $this->estado];
+
+        return ejecutarSQL($sql ,$parametros);
     }
     public function eliminar(): bool
     {
-        throw new \Exception('Not implemented');
+        $sql = "DELETE FROM tareas WHERE id = :ID";
+
+        $parametros = [":ID" => $this->id];
+        return ejecutarSQL($sql, $parametros);
     }
 
 }
