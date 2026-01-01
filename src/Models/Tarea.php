@@ -2,7 +2,7 @@
 namespace App\Models;
 use Exception;
 use App\Models\Interfaces\crudInterface;
-use PDO;
+
 
 class Tarea implements crudInterface
 {

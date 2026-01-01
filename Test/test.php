@@ -5,6 +5,9 @@ use App\Models\Tarea;
 
 
 $xd = new Tarea();
-$xd->id = -30;
-echo $xd->id;
+echo "{json : xd}";
+
+header("Content-Type: application/json; charset=UTF-8");
+http_response_code();
+
 
