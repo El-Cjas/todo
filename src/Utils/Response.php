@@ -17,7 +17,7 @@ class Response
         exit(); // Terminar ejecución
     }
 
-    private static function error($message, $code = 400)
+    public static function error($message, $code = 400)
     {
         self::enviar([
             "status" => "error",

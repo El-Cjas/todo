@@ -10,9 +10,7 @@ create table tareas (
 )
 
 CREATE TABLE tareas (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY ,
     titulo VARCHAR(255),
-    fecha DATE,
-    importante BOOLEAN,
     completado BOOLEAN
 );

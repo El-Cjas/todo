@@ -1,20 +1,22 @@
 <?php
+
 namespace App\Models;
+
 use Exception;
 use App\Models\Interfaces\crudInterface;
 
 
 class Tarea implements crudInterface
 {
-    public int $id{
-        set { 
+    public int $id {
+        set {
             if ($value < 0) {
-                throw new Exception("el id no puede ser menor a cero", 1);   
+                throw new Exception("el id no puede ser menor a cero", 1);
             }
             $this->id = $value;
-         }
+        }
     }
-    public $titulo ;
+    public $titulo;
     public $fecha;
     public $importante;
     public $estado;
@@ -26,7 +28,7 @@ class Tarea implements crudInterface
         $this->importante = false;
         $this->estado = 0;
     }
-    
+
     public function leer(): array
     {
         $sql = "SELECT * FROM tareas";
@@ -36,40 +38,33 @@ class Tarea implements crudInterface
     {
         $sql = "SELECT * FROM tareas WHERE id = :ID";
 
-        return seleccionar($sql,[":ID" => $this->id]);
+        return seleccionar($sql, [":ID" => $this->id]);
     }
     public function crear(): bool
     {
-        $sql = "INSERT INTO tareas(titulo, fecha, importante, completado) VALUES (:titulo,:fecha,:importante,:completado) WHERE id = :ID";
+        $sql = "INSERT INTO tareas(titulo) VALUES (:titulo)";
         $parametros = [
-            ":ID" => $this->id,
-            ":titulo" => $this->titulo,
-            ":fecha" => $this->fecha,
-            ":importante" => $this->importante,
-            ":completado" => $this->estado];
+            ":titulo" => $this->titulo
+        ];
         return ejecutarSQL($sql, $parametros);
     }
     public function actualizar(): bool
     {
         $sql = "UPDATE tareas
-                SET titulo = :titulo, fecha = :fecha, importante = :importante, completado = :completado
+                SET titulo = :titulo
                 WHERE id = :ID";
-        
+
         $parametros = [
             ":ID" => $this->id,
-            ":titulo" => $this->titulo,
-            ":fecha" => $this->fecha,
-            ":importante" => $this->importante,
-            ":completado" => $this->estado];
+            ":titulo" => $this->titulo
+        ];
 
-        return ejecutarSQL($sql ,$parametros);
+        return ejecutarSQL($sql, $parametros);
     }
     public function eliminar(): bool
     {
         $sql = "DELETE FROM tareas WHERE id = :ID";
-
         $parametros = [":ID" => $this->id];
         return ejecutarSQL($sql, $parametros);
     }
-
 }

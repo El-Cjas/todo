@@ -10,5 +10,33 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Expires: 0");
 
 // Tu lógica de API aquí
-echo json_encode(["status" => "ok", "message" => "API funcionando"]);
+use App\Controllers\Controller;
+
+
+$metodo = $_SERVER['REQUEST_METHOD'];
+$controlador = new Controller();
+
+switch ($metodo) {
+    case 'GET':
+        $controlador->index();
+        break;
+
+    case 'POST':
+        $controlador->guardar();
+        break;
+    
+    case 'PUT':
+        echo 'put';
+        break;
+    
+    case 'DELETE':
+        echo 'delete';
+        break;
+    
+    default:
+        echo 'esto se ejecuta cuando no hay un metodo http compatible';
+        break;
+}
+
+
 ?>
