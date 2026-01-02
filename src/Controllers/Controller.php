@@ -47,12 +47,37 @@ class Controller
     }
 
     public function eliminar() {
-        $this->tarea->eliminar();
+        $datos = json_decode(file_get_contents("php://input"));
+        $this->tarea->id = $datos->id;
+        if (isset($datos->id)) {
+            $resultado = $this->tarea->eliminar();
+            if ($resultado) {
+                Response::enviar($resultado);
+            } else {
+                Response::error("ha ocurrido un error, intenta nuevamente");
+            }
+        }else {
+            Response::error("la tarea no existe");
+        }
         
     }
 
     public function actualizar() {
-        $this->tarea->actualizar();
+        $datos = json_decode(file_get_contents("php://input"));
+        $this->tarea->id = $datos->id;
+        $this->tarea->titulo = $datos->titulo;
+        if (isset($datos->id)) {
+            $resultado = $this->tarea->actualizar();
+            if ($resultado) {
+                Response::enviar($resultado);
+            }
+            else {
+                Response::error("ha ocurrido un error, intenta nuevamente");
+            }
+        }else {
+            Response::error("El campo de tarea no puede estar vacio");
+        }
+
     }
 
 
