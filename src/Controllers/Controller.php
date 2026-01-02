@@ -6,8 +6,9 @@ use App\Utils\Response;
 
 class Controller
 {
-    private $tarea{
-        get => $this->tarea = new Tarea;
+    private Tarea $tarea { 
+        get => $this->tarea ??= new Tarea();
+        set => $this->tarea = $value;
     }
 
     public function index()
@@ -29,9 +30,19 @@ class Controller
     function guardar() {
         //obtenemos los datos del json recibido
         $datos = json_decode(file_get_contents("php://input"));
-        print_r($datos);
         $this->tarea->titulo = $datos->titulo;
-
+        //print_r($this->tarea->titulo);
+        //validando si tiene algun valor
+        if ($this->tarea->titulo) {
+            $result = $this->tarea->crear();//aqui se realiza la consulta y devuelve si fue exitoso o no
+            if ($result) {
+                Response::enviar($result);
+            }else {
+                Response::error("ha ocurrido un error, intenta nuevamente");
+            }
+        }else {
+            Response::error("El campo de tarea no puede estar vacio");
+        }
         //Response::enviar($this->tarea->crear());
     }
 

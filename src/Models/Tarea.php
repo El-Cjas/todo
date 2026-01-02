@@ -68,3 +68,4 @@ class Tarea implements crudInterface
         return ejecutarSQL($sql, $parametros);
     }
 }
+
