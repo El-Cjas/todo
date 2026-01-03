@@ -62,7 +62,7 @@ class Controller
         
     }
 
-    public function actualizar() {
+    public function actualizar_titulo() {
         $datos = json_decode(file_get_contents("php://input"));
         $this->tarea->id = $datos->id;
         $this->tarea->titulo = $datos->titulo;
@@ -81,6 +81,23 @@ class Controller
     }
 
 
+    public function actualizar_estado() {
+        $datos = json_decode(file_get_contents("php://input"));
+        $this->tarea->id = $datos->id;
+        $this->tarea->estado = $datos->estado;
+        if (isset($datos->id)) {
+            $resultado = $this->tarea->actualizar();
+            if ($resultado) {
+                Response::enviar($resultado);
+            }
+            else {
+                Response::error("ha ocurrido un error, intenta nuevamente");
+            }
+        }else {
+            Response::error("El campo de tarea no puede estar vacio");
+        }
+
+    }
 }
 
 // new Controller()->guardar();

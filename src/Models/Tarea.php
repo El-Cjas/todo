@@ -61,6 +61,21 @@ class Tarea implements crudInterface
 
         return ejecutarSQL($sql, $parametros);
     }
+
+    public function actualizar_estado(): bool
+    {
+        $sql = "UPDATE tareas
+                SET completado = :completado
+                WHERE id = :ID";
+
+        $parametros = [
+            ":ID" => $this->id,
+            ":completado" => $this->estado
+        ];
+
+        return ejecutarSQL($sql, $parametros);
+    }
+
     public function eliminar(): bool
     {
         $sql = "DELETE FROM tareas WHERE id = :ID";

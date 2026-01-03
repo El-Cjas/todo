@@ -4,7 +4,7 @@ include_once "../vendor/autoload.php";
 // Configuración de headers para API REST en PHP
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, PATCH");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 //header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Expires: 0");
@@ -13,7 +13,7 @@ header("Expires: 0");
 use App\Controllers\Controller;
 
 
-$metodo = $_SERVER['REQUEST_METHOD'];
+echo $metodo = $_SERVER['REQUEST_METHOD'];
 $controlador = new Controller();
 
 switch ($metodo) {
@@ -26,11 +26,11 @@ switch ($metodo) {
         break;
     
     case 'PUT':
-        echo 'put';
+        $controlador->actualizar_titulo();
         break;
     
     case 'DELETE':
-        echo 'delete';
+        $controlador->eliminar();
         break;
     
     default:
