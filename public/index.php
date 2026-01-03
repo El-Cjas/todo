@@ -33,6 +33,10 @@ switch ($metodo) {
         $controlador->eliminar();
         break;
     
+    case 'PATCH':
+        $controlador->actualizar_estado();
+        break;
+    
     default:
         echo 'esto se ejecuta cuando no hay un metodo http compatible';
         break;
