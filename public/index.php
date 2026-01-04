@@ -13,7 +13,7 @@ header("Expires: 0");
 use App\Controllers\Controller;
 
 
-echo $metodo = $_SERVER['REQUEST_METHOD'];
+$metodo = $_SERVER['REQUEST_METHOD'];
 $controlador = new Controller();
 
 switch ($metodo) {

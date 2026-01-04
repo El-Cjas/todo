@@ -17,7 +17,7 @@ class Controller
         $num_registros = count($datos);
 
         if($num_registros > 0){
-            $datos["datos"] = $this->tarea->leer();
+            $datos   = $this->tarea->leer();
             Response::enviar($datos);
         
         }else{
@@ -85,8 +85,9 @@ class Controller
         $datos = json_decode(file_get_contents("php://input"));
         $this->tarea->id = $datos->id;
         $this->tarea->estado = $datos->estado;
+        print_r($datos);
         if (isset($datos->id)) {
-            $resultado = $this->tarea->actualizar();
+            $resultado = $this->tarea->actualizar_estado();
             if ($resultado) {
                 Response::enviar($resultado);
             }
